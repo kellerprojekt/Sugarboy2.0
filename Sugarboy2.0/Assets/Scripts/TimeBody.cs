@@ -12,27 +12,24 @@ public class TimeBody : MonoBehaviour {
 
     Rigidbody rb;
 
-    // Use this for initialization
     void Start () {
         pointsInTime = new List<PointInTime> ();
         rb = GetComponent<Rigidbody> ();
     }
 
     // Update is called once per frame
+
     void Update () {
         if (Input.GetKey (KeyCode.Q)) {
             StartRewind ();
-            Rewind ();
         }
-    }
-
-    private void CheckKey () {
-
     }
 
     void FixedUpdate () {
         if (!isRewinding) {
             Record ();
+        } else {
+            Rewind ();
         }
     }
 
@@ -62,12 +59,12 @@ public class TimeBody : MonoBehaviour {
         pointsInTime.Add (new PointInTime (transform.position, transform.rotation));
     }
 
-    public void StartRewind () {
+    void StartRewind () {
         isRewinding = true;
         rb.isKinematic = true;
     }
 
-    public void StopRewind () {
+    void StopRewind () {
         isRewinding = false;
         rb.isKinematic = false;
     }
