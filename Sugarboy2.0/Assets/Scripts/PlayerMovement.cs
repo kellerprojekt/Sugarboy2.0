@@ -9,16 +9,25 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private LayerMask platformLayerMask;
     [SerializeField] private float maxDistance = 1.5f;
     RaycastHit hit;
+    private Vector3 direction;
     [SerializeField] private bool hitDetected;
     private BoxCollider boxCollider;
+    Rigidbody rb;
 
     private void Awake () {
         boxCollider = gameObject.GetComponent<BoxCollider> ();
+        rb = this.GetComponent<Rigidbody> ();
     }
     private void FixedUpdate () {
+        //Both ways of movement do basically the same thing. I have no idea why the movement occasionally becomes jittery or by moving against some other object too. TODO -> need to figure out why that happens
+
         transform.Translate (Vector3.Normalize (Vector3.right) * _movementSpeed * Time.deltaTime * Input.GetAxis ("Horizontal"));
+
+        // rb.MovePosition ((transform.position + (direction * _movementSpeed * Time.deltaTime)));
     }
+
     private void Update () {
+        direction = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, 0);
         Jump ();
     }
     private void Jump () {
@@ -26,10 +35,6 @@ public class PlayerMovement : MonoBehaviour {
             gameObject.GetComponent<Rigidbody> ().AddForce (new Vector2 (0f, _jumpingSpeed), ForceMode.Impulse);
         }
     }
-
-    // private bool checkGround(){
-    //     bool grounded = Physics.OverlapBox(transform.position / 2, transform.lossyScale / 2, Quaternion.identity, platformLayerMask);
-    // }
 
     private bool IsGrounded () {
 
@@ -39,8 +44,6 @@ public class PlayerMovement : MonoBehaviour {
             boxCollider.transform.rotation,
             maxDistance
         );
-
-        // Debug.Log (hitDetected);
 
         return hitDetected;
     }
