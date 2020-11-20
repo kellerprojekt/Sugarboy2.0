@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5391505072118101356, guid: 1a280377048c4bf47b973544006bb5c0, type: 3}
-  clone: {fileID: 5399845334553091014, guid: 6641026f6ca34e34b81e6dd172aeac1e, type: 3}
+  clone: {fileID: 5920064766725924819, guid: 7a160afdf8c3fa64585307afc04b62a3, type: 3}
   startingSpawnPoint: {fileID: 543243791}
 --- !u!4 &1703670762
 Transform:
