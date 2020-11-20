@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject instance = Instantiate(clone, startingSpawnPoint.transform.position, Quaternion.identity);
+            GameObject instance = Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
             instance.tag = "Player";
         }
     }
