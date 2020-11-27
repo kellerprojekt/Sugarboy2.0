@@ -20,11 +20,14 @@ public class SpawnClones : MonoBehaviour
 
     private void SpawnClone()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && GameManager.Instance.AllowedClones > 0)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject instance = Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
-            instance.tag = "Player";
             GameManager.Instance.AllowedClones--;
+            if (GameManager.Instance.AllowedClones >= 1)
+            {
+                GameObject instance = Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
+                instance.tag = "Player";
+            }
         }
     }
 }

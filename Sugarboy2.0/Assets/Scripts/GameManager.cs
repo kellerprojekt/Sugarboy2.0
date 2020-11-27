@@ -27,6 +27,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AllowedClones = 6;
+        AllowedClones = 5;
     }
 }
