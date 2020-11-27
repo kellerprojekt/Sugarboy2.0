@@ -5,29 +5,33 @@ using UnityEngine;
 public class SpawnClones : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject clone;
-    [SerializeField] private GameObject startingSpawnPoint;
+    private List<GameObject> clones;
+
+    private GameObject startingSpawnPoint;
 
     private void Start()
     {
+        clones = new List<GameObject>();
+        startingSpawnPoint = GameObject.Find("SpawnPoint");
         Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
     }
 
     private void Update()
     {
+        startingSpawnPoint = GameObject.Find("SpawnPoint");
         SpawnClone();
     }
 
     private void SpawnClone()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && GameManager.Instance.AllowedClones > 0)
         {
-            GameManager.Instance.AllowedClones--;
-            if (GameManager.Instance.AllowedClones >= 1)
-            {
-                GameObject instance = Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
-                instance.tag = "Player";
-            }
+            GameObject cloneToBe = GameObject.FindWithTag("Player");
+            cloneToBe.tag = "Clone";
+            clones.Add(cloneToBe);
+            GameManager.Instance.ReduceAllowedClones();
+            Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
+            //instance.tag = "Player";
         }
     }
 }

@@ -32,10 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && GameManager.Instance.AllowedClones > 0)
-        {
-            this.tag = "Clone";
-        }
+        //if (this.CompareTag("Clone"))
+        //{
+        //}
         if (CheckActive())
         {
             Jump();
@@ -66,6 +65,4 @@ public class PlayerMovement : MonoBehaviour
 
         return hitDetected;
     }
-
-    //TODO -> last clone moves with the player
 }

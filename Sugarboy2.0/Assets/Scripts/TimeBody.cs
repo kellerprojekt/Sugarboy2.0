@@ -24,7 +24,7 @@ public class TimeBody : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && GameManager.Instance.AllowedClones > 0)
+        if (Input.GetKeyDown(KeyCode.Q) && this.CompareTag("Clone"))
         {
             StartRewind();
         }
@@ -36,7 +36,7 @@ public class TimeBody : MonoBehaviour
         {
             Rewind();
         }
-        else if (!recordedOnce)
+        else if (!recordedOnce && GameManager.Instance.AllowedClones > 0)
         {
             Record();
         }
@@ -94,16 +94,21 @@ public class TimeBody : MonoBehaviour
         pointsInTime.Add(new PointInTime(transform.position, transform.rotation));
     }
 
-    public void StartRewind()
+    private void StartRewind()
     {
         isRewinding = true;
         rb.isKinematic = true;
     }
 
-    public void StopRewind()
+    private void StopRewind()
     {
         isRewinding = false;
         rb.isKinematic = false;
         recordedOnce = true;
+    }
+
+    public void ResetList()
+    {
+        pointsInTime.Clear();
     }
 }

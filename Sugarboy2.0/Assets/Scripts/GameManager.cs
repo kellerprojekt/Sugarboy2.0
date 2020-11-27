@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int AllowedClones { get; set; }
+    public int AllowedClones { get; private set; }
+    public int AllowedClonesReset { get; private set; }
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -27,6 +28,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AllowedClones = 5;
+        AllowedClones = 3;
+        AllowedClonesReset = AllowedClones;
+    }
+
+    public void ReduceAllowedClones()
+    {
+        if (AllowedClones > 0)
+        {
+            AllowedClones--;
+        }
+    }
+
+    public void ResetAllowedClones()
+    {
+        AllowedClones = AllowedClonesReset;
     }
 }
