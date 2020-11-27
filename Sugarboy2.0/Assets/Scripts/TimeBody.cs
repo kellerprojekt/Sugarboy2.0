@@ -24,7 +24,7 @@ public class TimeBody : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && GameManager.Instance.AllowedClones > 0)
         {
             StartRewind();
         }

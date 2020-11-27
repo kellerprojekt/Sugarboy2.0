@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject clone;
-    [SerializeField] private GameObject startingSpawnPoint;
+    public int AllowedClones { get; set; }
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject go = new GameObject("GameManager");
+                go.AddComponent<GameManager>();
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     private void Start()
     {
-        Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
-    }
-
-    private void Update()
-    {
-        SpawnClone();
-    }
-
-    private void SpawnClone()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GameObject instance = Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
-            instance.tag = "Player";
-        }
+        AllowedClones = 6;
     }
 }
