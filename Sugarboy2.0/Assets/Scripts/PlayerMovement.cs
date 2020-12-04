@@ -32,10 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            this.tag = "Clone";
-        }
+        //if (this.CompareTag("Clone"))
+        //{
+        //}
         if (CheckActive())
         {
             Jump();
