@@ -9,6 +9,6 @@ public class CloneDisplay : MonoBehaviour
 
     private void Update()
     {
-        cloneDisplay.text = $"Clones : {GameManager.Instance.AllowedClones}";
+        cloneDisplay.text = $" {GameManager.Instance.AllowedClones} / {GameManager.Instance.AllowedClonesReset}";
     }
 }
