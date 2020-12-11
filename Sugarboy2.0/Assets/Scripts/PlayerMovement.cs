@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CheckActive())
+        if (GameManager.Instance.activePlayer.CompareTag(this.tag))
         {
             Movement();
         }
@@ -32,19 +32,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //if (this.CompareTag("Clone"))
-        //{
-        //}
-        if (CheckActive())
+        if (GameManager.Instance.activePlayer.CompareTag(this.tag))
         {
             Jump();
         }
     }
 
-    private bool CheckActive()
-    {
-        return this.CompareTag("Player");
-    }
+    //private bool CheckActive()
+    //{
+    //    return this.CompareTag("Player");
+    //}
 
     private void Jump()
     {

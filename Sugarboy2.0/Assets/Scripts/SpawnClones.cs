@@ -13,7 +13,7 @@ public class SpawnClones : MonoBehaviour
     {
         clones = new List<GameObject>();
         startingSpawnPoint = GameObject.Find("SpawnPoint");
-        Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
+        //Instantiate(player, startingSpawnPoint.transform.position, Quaternion.identity);
     }
 
     private void Update()

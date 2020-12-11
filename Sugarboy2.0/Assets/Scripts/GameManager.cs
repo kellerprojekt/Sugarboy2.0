@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public int AllowedClones { get; private set; }
     public int AllowedClonesReset { get; private set; }
+    public GameObject activePlayer;
+    public int counter;
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -28,8 +30,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        counter = 0;
         AllowedClones = 3;
         AllowedClonesReset = AllowedClones;
+        activePlayer = GameObject.FindGameObjectWithTag("Player_" + counter);
     }
 
     public void ReduceAllowedClones()

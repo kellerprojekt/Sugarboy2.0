@@ -6,7 +6,7 @@ using Cinemachine;
 public class CameraFindPlayer : MonoBehaviour
 {
     private CinemachineVirtualCamera cinemachineVirtualCamera;
-    private GameObject currentPlayer;
+    [SerializeField] private GameObject currentPlayer;
 
     private void Awake()
     {
@@ -16,7 +16,12 @@ public class CameraFindPlayer : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        currentPlayer = GameObject.FindWithTag("Player");
+        currentPlayer = GameManager.Instance.activePlayer;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentPlayer = GameManager.Instance.activePlayer;
+        }
+
         cinemachineVirtualCamera.Follow = currentPlayer.transform;
         cinemachineVirtualCamera.LookAt = currentPlayer.transform;
     }

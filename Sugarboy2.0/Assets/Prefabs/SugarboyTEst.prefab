@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5391505072118101349}
   m_Layer: 9
   m_Name: SugarboyTEst
-  m_TagString: Player
+  m_TagString: Player_0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5391505072118101356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.30400816, y: 4.852588, z: -0.78669}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75726, y: 1.7082, z: 0.7448834}
   m_Children: []
   m_Father: {fileID: 0}
@@ -141,10 +141,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5391505072118101356}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c4aa30803711e946bea5ec7ee8cfdf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isRewinding: 0
   recordTime: 5
+  recordedOnce: 0
+  switchList: 0
