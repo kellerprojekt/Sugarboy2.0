@@ -6,7 +6,6 @@ using UnityEngine;
 public class TimeBodyCopy : MonoBehaviour {
     [SerializeField] private GameObject clone;
 
-    //private List<GameObject> clones;
     public float recordTime = 5f;
 
     private List<PointInTime> pointsInTime;
@@ -92,7 +91,7 @@ public class TimeBodyCopy : MonoBehaviour {
         pointsInTime.Clear ();
     }
 
-    //Instantiate a new player at the position of the current one and give controle to the new player object
+    //Instantiate a new player at the position of the current one and give control to the new player object
     private void Clone () {
         spawningPosition = GameManager.Instance.activePlayer.transform;
         GameManager.Instance.ReduceAllowedClones ();
