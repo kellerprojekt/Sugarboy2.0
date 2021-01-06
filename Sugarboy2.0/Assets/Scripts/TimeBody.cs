@@ -8,7 +8,6 @@ public class TimeBody : MonoBehaviour
     [SerializeField] private bool isRewinding = false;
 
     public float recordTime = 5f;
-
     private List<PointInTime> pointsInTime;
     private Rigidbody rb;
     [SerializeField] private bool recordedOnce = false;
