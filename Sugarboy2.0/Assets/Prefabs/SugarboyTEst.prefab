@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5391505072118101346}
   - component: {fileID: 5391505072118101347}
   - component: {fileID: 5391505072118101350}
-  - component: {fileID: 5391505072118101349}
   - component: {fileID: 6694544582174199133}
   m_Layer: 9
   m_Name: SugarboyTEst
@@ -114,9 +113,6 @@ MonoBehaviour:
   _movementSpeed: 5
   _isGrounded: 0
   _jumpingSpeed: 5
-  platformLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   maxDistance: 0.4
   hitDetected: 0
 --- !u!54 &5391505072118101350
@@ -135,22 +131,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5391505072118101349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5391505072118101356}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c4aa30803711e946bea5ec7ee8cfdf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRewinding: 0
-  recordTime: 5
-  recordedOnce: 0
-  switchList: 0
 --- !u!114 &6694544582174199133
 MonoBehaviour:
   m_ObjectHideFlags: 0

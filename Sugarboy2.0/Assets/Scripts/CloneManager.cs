@@ -2,18 +2,25 @@
 
 public class CloneManager : MonoBehaviour {
     [SerializeField] private GameObject clone;
+    private PlayerControls controls;
 
-    private void Update () {
-        if (Input.GetKeyDown (KeyCode.H)) {
-            DeleteClones ();
-        }
+    private void Awake () {
+        controls = new PlayerControls ();
+        controls.Gameplay.DeleteClones.performed += _ => DeleteClones ();
     }
 
+    private void OnEnable () {
+        controls.Enable ();
+    }
+
+    private void OnDisable () {
+
+        controls.Disable ();
+    }
     //Deletes all active clones and clears the list
     private void DeleteClones () {
         GameManager.Instance.ClearList ();
         GameManager.Instance.ResetAllowedClones ();
         GameManager.Instance.activePlayer.tag = "Player";
     }
-
 }
