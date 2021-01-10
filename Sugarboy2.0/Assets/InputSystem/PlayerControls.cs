@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputSystem/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -62,6 +62,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""StartRecording"",
                     ""type"": ""PassThrough"",
                     ""id"": ""d0dc2ae5-8d74-45bf-9a0b-6e697ae2bdfd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5833270-e539-474d-8228-46684ccd503e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -243,6 +251,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""StartRecording"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e65c9c3b-e7c3-4f28-a961-a835f57fbbd1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -257,6 +276,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_RestartGame = m_Gameplay.FindAction("RestartGame", throwIfNotFound: true);
         m_Gameplay_SwitchCamera = m_Gameplay.FindAction("SwitchCamera", throwIfNotFound: true);
         m_Gameplay_StartRecording = m_Gameplay.FindAction("StartRecording", throwIfNotFound: true);
+        m_Gameplay_PauseGame = m_Gameplay.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -312,6 +332,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_RestartGame;
     private readonly InputAction m_Gameplay_SwitchCamera;
     private readonly InputAction m_Gameplay_StartRecording;
+    private readonly InputAction m_Gameplay_PauseGame;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -322,6 +343,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @RestartGame => m_Wrapper.m_Gameplay_RestartGame;
         public InputAction @SwitchCamera => m_Wrapper.m_Gameplay_SwitchCamera;
         public InputAction @StartRecording => m_Wrapper.m_Gameplay_StartRecording;
+        public InputAction @PauseGame => m_Wrapper.m_Gameplay_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -349,6 +371,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @StartRecording.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStartRecording;
                 @StartRecording.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStartRecording;
                 @StartRecording.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStartRecording;
+                @PauseGame.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -371,6 +396,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @StartRecording.started += instance.OnStartRecording;
                 @StartRecording.performed += instance.OnStartRecording;
                 @StartRecording.canceled += instance.OnStartRecording;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
         }
     }
@@ -383,5 +411,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnRestartGame(InputAction.CallbackContext context);
         void OnSwitchCamera(InputAction.CallbackContext context);
         void OnStartRecording(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }
