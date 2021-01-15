@@ -115,7 +115,11 @@ public class TimeBodyCopy : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ChangeTags());
+            GameObject obj = transform.Find("TopCollider").gameObject;
+            GameObject triggerBox = obj.transform.Find("TriggerBox").gameObject;
+            CheckTopCollision col = triggerBox.GetComponent<CheckTopCollision>();
+
+            StartCoroutine(RemoveChild(col, obj));
             rb.isKinematic = false;
             switchList = !switchList;
         }
@@ -142,22 +146,16 @@ public class TimeBodyCopy : MonoBehaviour
         GameManager.Instance.activePlayer = obj;
     }
 
-    private IEnumerator ChangeTags()
+    private IEnumerator RemoveChild(CheckTopCollision col, GameObject obj)
     {
-        GameObject obj = transform.Find("TopCollider").gameObject;
-        GameObject playerObj = obj.transform.Find("Player").gameObject;
-
-        if (playerObj)
+        //if there is a player child, then remove it from the parent and deactivate the collision box on top of clone
+        if (col.isChild)
         {
-            playerObj.transform.SetParent(null);
+            obj.transform.Find("Player").gameObject.transform.SetParent(null);
+            obj.SetActive(false);
+            col.isChild = false;
+            yield return new WaitForSeconds(.1f);
+            obj.SetActive(true);
         }
-        else
-        {
-            Debug.Log("hello");
-        }
-
-        obj.SetActive(false);
-        yield return new WaitForSeconds(.1f);
-        obj.SetActive(true);
     }
 }
