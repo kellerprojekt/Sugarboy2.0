@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TimeBodyCopy : MonoBehaviour {
+public class TimeBodyCopy : MonoBehaviour
+{
     [SerializeField] private GameObject clone;
 
     private PlayerControls controls;
@@ -20,96 +21,143 @@ public class TimeBodyCopy : MonoBehaviour {
     private bool recording = false;
     private Transform spawningPosition;
 
-    private void Awake () {
-        controls = new PlayerControls ();
-        controls.Gameplay.StartRecording.performed += _ => StartRecording ();
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        controls.Gameplay.StartRecording.performed += _ => StartRecording();
     }
 
-    private void OnEnable () {
-        controls.Gameplay.Enable ();
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
     }
 
-    private void OnDisable () {
-        controls.Gameplay.Disable ();
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
     }
-    private void Start () {
-        pointsInTime = new List<PointInTime> ();
-        rb = GetComponent<Rigidbody> ();
+
+    private void Start()
+    {
+        pointsInTime = new List<PointInTime>();
+        rb = GetComponent<Rigidbody>();
     }
-    private void FixedUpdate () {
+
+    private void FixedUpdate()
+    {
         //if press button start recoring
-        if (recording) {
-            Record ();
+        if (recording)
+        {
+            Record();
         }
-        if (keyCounter > 2) {
+        if (keyCounter > 2)
+        {
             this.tag = $"Player_{GameManager.Instance.counter}";
-            GameManager.Instance.AddCloneToList (this.gameObject);
-            Rewind ();
+            GameManager.Instance.AddCloneToList(this.gameObject);
+            Rewind();
             rb.isKinematic = true;
         }
-        if (keyCounter == 2) {
-            Clone ();
+        if (keyCounter == 2)
+        {
+            Clone();
             keyCounter++;
         }
     }
 
-    private void StartRecording () {
-
+    private void StartRecording()
+    {
         clone = GameManager.Instance.activePlayer;
-        bool currentPlayer = clone.CompareTag (this.tag);
-        if (!recording && currentPlayer) {
+        bool currentPlayer = clone.CompareTag(this.tag);
+        if (!recording && currentPlayer && GameManager.Instance.AllowedClones > 0)
+        {
             recording = true;
             GameManager.Instance.recording = recording;
             keyCounter++;
-        } else if (recording && currentPlayer) {
+        }
+        else if (recording && currentPlayer)
+        {
             recording = false;
             GameManager.Instance.recording = recording;
             keyCounter++;
         }
     }
 
-    private void Rewind () {
-        if (!switchList) {
-            if (!listCopied) {
-                pointsInTimeCopy = new List<PointInTime> (pointsInTime);
+    private void Rewind()
+    {
+        if (!switchList)
+        {
+            if (!listCopied)
+            {
+                pointsInTimeCopy = new List<PointInTime>(pointsInTime);
                 listCopied = true;
             }
-            RewindList (pointsInTime);
-        } else if (switchList) {
-            if (listCopied) {
-                pointsInTime = new List<PointInTime> (pointsInTimeCopy);
+            RewindList(pointsInTime);
+        }
+        else if (switchList)
+        {
+            if (listCopied)
+            {
+                pointsInTime = new List<PointInTime>(pointsInTimeCopy);
                 listCopied = false;
             }
-            RewindList (pointsInTimeCopy);
+            RewindList(pointsInTimeCopy);
         }
     }
 
-    private void RewindList (List<PointInTime> list) {
-        if (list.Count > 0) {
+    private void RewindList(List<PointInTime> list)
+    {
+        if (list.Count > 0)
+        {
             PointInTime pointInTime = list[0];
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
-            list.RemoveAt (0);
-        } else {
+            list.RemoveAt(0);
+        }
+        else
+        {
+            StartCoroutine(ChangeTags());
             rb.isKinematic = false;
             switchList = !switchList;
         }
     }
 
-    private void Record () {
-        pointsInTime.Add (new PointInTime (transform.position, transform.rotation));
+    private void Record()
+    {
+        pointsInTime.Add(new PointInTime(transform.position, transform.rotation));
     }
 
-    public void ResetList () {
-        pointsInTime.Clear ();
+    public void ResetList()
+    {
+        pointsInTime.Clear();
     }
 
     //Instantiate a new player at the position of the current one and give control to the new player object
-    private void Clone () {
+    private void Clone()
+    {
         spawningPosition = GameManager.Instance.activePlayer.transform;
-        GameManager.Instance.ReduceAllowedClones ();
-        GameObject obj = Instantiate (clone, spawningPosition.position, Quaternion.identity);
+        GameManager.Instance.ReduceAllowedClones();
+        GameObject obj = Instantiate(clone, spawningPosition.position, Quaternion.identity);
         obj.tag = "Player";
+        obj.name = "Player";
         GameManager.Instance.activePlayer = obj;
+    }
+
+    private IEnumerator ChangeTags()
+    {
+        GameObject obj = transform.Find("TopCollider").gameObject;
+        GameObject playerObj = obj.transform.Find("Player").gameObject;
+
+        if (playerObj)
+        {
+            playerObj.transform.SetParent(null);
+        }
+        else
+        {
+            Debug.Log("hello");
+        }
+
+        obj.SetActive(false);
+        yield return new WaitForSeconds(.1f);
+        obj.SetActive(true);
     }
 }
