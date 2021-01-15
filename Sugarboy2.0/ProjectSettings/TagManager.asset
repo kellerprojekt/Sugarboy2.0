@@ -18,6 +18,8 @@ TagManager:
   - Player_9
   - Player_10
   - Player_0
+  - BottomCollider
+  - TopCollider
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Player
   - Clone
   - PostProcesssing
-  - 
+  - NoCollision
   - 
   - 
   - 
