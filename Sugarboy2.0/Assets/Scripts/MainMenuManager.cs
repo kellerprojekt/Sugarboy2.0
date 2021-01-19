@@ -1,31 +1,61 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SimpleJSON;
 
 public class MainMenuManager : MonoBehaviour
 {
+    private readonly string loadUri = "https://sugarboy-server.herokuapp.com/load/";
 
     public void LoadGame()
     {
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        if (File.Exists(Application.persistentDataPath + "/save.json"))
         {
+            string jsonString = File.ReadAllText(Application.persistentDataPath + "/save.json");
+            JSONObject saveJson = (JSONObject)JSON.Parse(jsonString);
 
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
-            Save save = (Save)bf.Deserialize(file);
-            file.Close();
+            string uniqueId = saveJson["uniqueId"];
 
-            SceneManager.LoadScene(save.savedScene);
-
-            Debug.Log("Game Loaded");
+            StartCoroutine(FetchData(uniqueId));
         }
-        else
+        //if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        //{
+        //    BinaryFormatter bf = new BinaryFormatter();
+        //    FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        //    Save save = (Save)bf.Deserialize(file);
+        //    file.Close();
+
+        //    SceneManager.LoadScene(save.level);
+
+        //    Debug.Log("Game Loaded");
+        //}
+        //else
+        //{
+        //    Debug.Log("No game saved!");
+        //}
+    }
+
+    private IEnumerator FetchData(string id)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(loadUri + id))
         {
-            Debug.Log("No game saved!");
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError || webRequest.isHttpError)
+            {
+                Debug.Log(webRequest.error);
+                yield break;
+            }
+
+            JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+
+            int level = data["level"];
+            SceneManager.LoadScene(level);
         }
     }
 
@@ -38,5 +68,4 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
     }
-
 }
