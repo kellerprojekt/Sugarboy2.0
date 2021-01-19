@@ -14,13 +14,20 @@ public class PauseGame : MonoBehaviour
     [SerializeField]
     private GameObject menu;
     private bool isPaused = false;
-    public int currentScene = 0;
+    public int currentScene;
 
     public void Awake()
     {
         controls = new PlayerControls();
         controls.Gameplay.PauseGame.performed += _ => Pause();
         Unpause();
+    }
+
+    void Start()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        currentScene = scene.buildIndex;
+        Debug.Log("Active Scene is '" + scene.buildIndex + "'.");
     }
 
     private void OnEnable()
@@ -58,13 +65,13 @@ public class PauseGame : MonoBehaviour
     {
         Save save = CreateSaveGameObject();
 
-        // 2
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
         bf.Serialize(file, save);
         file.Close();
 
         Debug.Log("Game Saved");
+        Debug.Log(currentScene);
     }
 
     private Save CreateSaveGameObject()
@@ -96,6 +103,11 @@ public class PauseGame : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
+    }
+
+    public void backToStart()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
