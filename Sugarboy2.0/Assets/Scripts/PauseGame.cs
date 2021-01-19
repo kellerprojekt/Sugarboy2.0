@@ -18,7 +18,7 @@ public class PauseGame : MonoBehaviour
     public int currentScene;
 
     private readonly string postUri = "https://sugarboy-server.herokuapp.com/save";
-    private readonly string loadUri = "https://sugarboy-server.herokuapp.com/load";
+    private readonly string loadUri = "https://sugarboy-server.herokuapp.com/load/";
 
     private JSONObject saveObj;
     private RequestHelper rh;
@@ -131,12 +131,15 @@ public class PauseGame : MonoBehaviour
 
     public void LoadGame()
     {
-        string jsonString = File.ReadAllText(Application.persistentDataPath + "/save.json");
-        JSONObject saveJson = (JSONObject)JSON.Parse(jsonString);
+        if (File.Exists(Application.persistentDataPath + "/save.json"))
+        {
+            string jsonString = File.ReadAllText(Application.persistentDataPath + "/save.json");
+            JSONObject saveJson = (JSONObject)JSON.Parse(jsonString);
 
-        string uniqueId = saveJson["uniqueId"];
+            string uniqueId = saveJson["uniqueId"];
 
-        StartCoroutine(FetchData(uniqueId));
+            StartCoroutine(FetchData(uniqueId));
+        }
 
         //if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         //{
