@@ -5,5 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class Save
 {
-    public int savedScene = 0;
+    public int level = 0;
+    public string uniqueId;
 }

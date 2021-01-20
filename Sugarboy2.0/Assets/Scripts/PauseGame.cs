@@ -1,26 +1,38 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Proyecto26;
+using SimpleJSON;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class PauseGame : MonoBehaviour
 {
-
     private PlayerControls controls;
+
     [SerializeField]
     private GameObject menu;
+
     private bool isPaused = false;
-    public int currentScene = 0;
+    public int currentScene;
+
+    private readonly string postUri = "https://sugarboy-server.herokuapp.com/save";
+    private readonly string loadUri = "https://sugarboy-server.herokuapp.com/load/";
+
+    private JSONObject saveObj;
+    private RequestHelper rh;
 
     public void Awake()
     {
         controls = new PlayerControls();
         controls.Gameplay.PauseGame.performed += _ => Pause();
         Unpause();
+    }
+
+    private void Start()
+    {
+        currentScene = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnEnable()
@@ -58,44 +70,93 @@ public class PauseGame : MonoBehaviour
     {
         Save save = CreateSaveGameObject();
 
-        // 2
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-        bf.Serialize(file, save);
-        file.Close();
+        saveObj = new JSONObject();
+        saveObj.Add("uniqueId", save.uniqueId);
+        saveObj.Add("level", save.level);
 
-        Debug.Log("Game Saved");
+        File.WriteAllText(Application.persistentDataPath + "/save.json", saveObj.ToString());
+
+        rh = new RequestHelper
+        {
+            Uri = postUri,
+            Body = new Save
+            {
+                level = save.level,
+                uniqueId = SystemInfo.deviceUniqueIdentifier
+            }
+        };
+
+        RestClient.Post(rh).Then(res =>
+        {
+            //Cant figure out why my message from the server is not being sent over
+            //Debug.Log(JsonUtility.ToJson(res, true));
+        }).Catch(err => { Debug.LogError(err.Message); });
+
+        //BinaryFormatter bf = new BinaryFormatter();
+        //FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        //bf.Serialize(file, save);
+        //file.Close();
+
+        //Debug.Log("Game Saved");
     }
 
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
 
-        save.savedScene = currentScene;
+        save.level = currentScene;
+        save.uniqueId = SystemInfo.deviceUniqueIdentifier;
 
         return save;
     }
 
-    public void LoadGame()
+    private IEnumerator FetchData(string id)
     {
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(loadUri + id))
         {
+            yield return webRequest.SendWebRequest();
 
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
-            Save save = (Save)bf.Deserialize(file);
-            file.Close();
+            if (webRequest.isNetworkError || webRequest.isHttpError)
+            {
+                Debug.Log(webRequest.error);
+                yield break;
+            }
 
-            SceneManager.LoadScene(save.savedScene);
+            JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
 
-            Debug.Log("Game Loaded");
-
-            Unpause();
-        }
-        else
-        {
-            Debug.Log("No game saved!");
+            int level = data["level"];
+            SceneManager.LoadScene(level);
         }
     }
 
+    public void LoadGame()
+    {
+        if (File.Exists(Application.persistentDataPath + "/save.json"))
+        {
+            string jsonString = File.ReadAllText(Application.persistentDataPath + "/save.json");
+            JSONObject saveJson = (JSONObject)JSON.Parse(jsonString);
+
+            string uniqueId = saveJson["uniqueId"];
+
+            StartCoroutine(FetchData(uniqueId));
+        }
+
+        //if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        //{
+        //    BinaryFormatter bf = new BinaryFormatter();
+        //    FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        //    Save save = (Save)bf.Deserialize(file);
+        //    file.Close();
+
+        //    SceneManager.LoadScene(save.savedScene);
+
+        //    Debug.Log("Game Loaded");
+
+        //    Unpause();
+        //}
+        //else
+        //{
+        //    Debug.Log("No game saved!");
+        //}
+    }
 }
