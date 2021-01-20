@@ -79,14 +79,22 @@
     },
     "com.unity.searcher": {
       "version": "4.0.9",
+<<<<<<< Updated upstream
       "depth": 2,
+=======
+      "depth": 1,
+>>>>>>> Stashed changes
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
       "version": "8.2.0",
+<<<<<<< Updated upstream
       "depth": 1,
+=======
+      "depth": 0,
+>>>>>>> Stashed changes
       "source": "registry",
       "dependencies": {
         "com.unity.render-pipelines.core": "8.2.0",
