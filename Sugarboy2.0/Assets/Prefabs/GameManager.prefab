@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4375584604171020197}
   - component: {fileID: 4375584604171020198}
+  - component: {fileID: 1703670761}
+  - component: {fileID: 1703670762}
+  - component: {fileID: 1703670764}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,8 +46,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d142644c98ec824caf2a8efcb71329c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5391505072118101356, guid: 1a280377048c4bf47b973544006bb5c0, type: 3}
-  clone: {fileID: 5920064766725924819, guid: 7a160afdf8c3fa64585307afc04b62a3, type: 3}
-  startingSpawnPoint: {fileID: 0}
-  allowedClones: 0
+  activePlayer: {fileID: 0}
   counter: 0
+  priority: 0
+  recording: 0
+  priorityIncrement: 10
+--- !u!114 &1703670761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4375584604171020199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4963ded92f99dfa4daa85ac3c1985f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 0}
+  currentScene: 0
+--- !u!114 &1703670762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4375584604171020199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2d545f7c9b76f49a21e1bc6103d73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1703670764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4375584604171020199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9b534b2748e95489cf85fd34ecd095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
