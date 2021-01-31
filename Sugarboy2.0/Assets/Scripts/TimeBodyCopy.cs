@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class TimeBodyCopy : MonoBehaviour
     [SerializeField] private bool switchList = false;
     private List<PointInTime> pointsInTimeCopy;
     private bool listCopied = false;
+    private Vector3 recordingPosition;
+    private bool recordingPositionSet = false;
 
     private int keyCounter = 0;
 
@@ -25,7 +28,9 @@ public class TimeBodyCopy : MonoBehaviour
     {
         controls = new PlayerControls();
         controls.Gameplay.StartRecording.performed += _ => StartRecording();
+        controls.Gameplay.SpawnNormalClone.performed += _ => Clone();
     }
+
 
     private void OnEnable()
     {
@@ -52,8 +57,8 @@ public class TimeBodyCopy : MonoBehaviour
         }
         if (keyCounter > 2)
         {
-            this.tag = $"Player_{GameManager.Instance.counter}";
-            GameManager.Instance.AddCloneToList(this.gameObject);
+            gameObject.tag = $"Player_{GameManager.Instance.counter}";
+            GameManager.Instance.AddCloneToList(gameObject);
             Rewind();
             rb.isKinematic = true;
         }
@@ -70,6 +75,8 @@ public class TimeBodyCopy : MonoBehaviour
         bool currentPlayer = clone.CompareTag(this.tag);
         if (!recording && currentPlayer && GameManager.Instance.AllowedClones > 0)
         {
+            recordingPosition = gameObject.transform.position;
+            recordingPositionSet = true;
             recording = true;
             GameManager.Instance.recording = recording;
             keyCounter++;
@@ -138,12 +145,23 @@ public class TimeBodyCopy : MonoBehaviour
     //Instantiate a new player at the position of the current one and give control to the new player object
     private void Clone()
     {
-        spawningPosition = GameManager.Instance.activePlayer.transform;
-        GameManager.Instance.ReduceAllowedClones();
-        GameObject obj = Instantiate(clone, spawningPosition.position, Quaternion.identity);
-        obj.tag = "Player";
-        obj.name = "Player";
-        GameManager.Instance.activePlayer = obj;
+        if (GameManager.Instance.AllowedClones > 0 && gameObject.CompareTag(GameManager.Instance.activePlayer.tag))
+        {
+            GameManager.Instance.AddCloneToList(gameObject);
+            gameObject.tag = $"Player_{GameManager.Instance.counter}";
+            spawningPosition = GameManager.Instance.activePlayer.transform;
+            GameManager.Instance.ReduceAllowedClones();
+            GameObject obj = Instantiate(clone, spawningPosition.position, Quaternion.identity);
+            obj.tag = "Player";
+            obj.name = "Player";
+            if (recordingPositionSet)
+            {
+                obj.transform.position = recordingPosition;
+                recordingPositionSet = false;
+            }
+            GameManager.Instance.activePlayer = obj;
+            recordingPosition = Vector3.zero;
+        }
     }
 
     private IEnumerator RemoveChild(CheckTopCollision col, GameObject obj)

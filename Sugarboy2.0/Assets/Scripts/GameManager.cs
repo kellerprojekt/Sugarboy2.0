@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public int AllowedClones { get; private set; }
     public int AllowedClonesReset { get; private set; }
+    [Header("How many clones should spawn")]
+    [SerializeField] private int cloneAmout;
     public GameObject activePlayer;
     public int counter;
     private List<GameObject> clones;
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start () {
         counter = 0;
-        AllowedClones = 3;
+        AllowedClones = cloneAmout;
         AllowedClonesReset = AllowedClones;
         activePlayer = GameObject.FindGameObjectWithTag ("Player");
         clones = new List<GameObject> ();

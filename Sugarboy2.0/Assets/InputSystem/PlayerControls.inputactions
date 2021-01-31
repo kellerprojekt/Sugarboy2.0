@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SpawnNormalClone",
+                    "type": "Button",
+                    "id": "dad68ae0-4027-4155-aa4d-43feea33954f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -133,7 +141,7 @@
                     "name": "",
                     "id": "3a4cdaa6-3eb4-45a6-b26c-06d1116156b5",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -198,7 +206,7 @@
                 {
                     "name": "",
                     "id": "0f5d094d-1542-4dca-8b5d-2eb8f192b7e8",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/c",
                     "interactions": "Tap(duration=0.3)",
                     "processors": "",
                     "groups": "",
@@ -258,6 +266,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbff293e-f0d7-42b9-afe9-5a4ffcfa7eb9",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnNormalClone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
