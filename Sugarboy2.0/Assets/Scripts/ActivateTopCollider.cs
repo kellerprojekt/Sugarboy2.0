@@ -14,7 +14,7 @@ public class ActivateTopCollider : MonoBehaviour
 
     private void ActivateCollider()
     {
-        if (this.tag.Contains("Player_") && !colliderActivated)
+        if (gameObject.tag.Contains("Player_") && !colliderActivated)
         {
             GameObject obj = gameObject.transform.Find(colliderTag).gameObject;
             obj.SetActive(true);

@@ -8,13 +8,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: d774afbf36f161642bb2eb871803902a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene 1.unity
     guid: 63345fc9f91ee0b419f58a4ff8c10501
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/test.unity
     guid: f98289795f85cf14bbdf52dac9652c18
   - enabled: 1
     path: Assets/Visuals/samplescene/Birth.unity
     guid: 4be2172587f3f2b4c86b82dc9a4d05b2
+  - enabled: 1
+    path: Assets/Visuals/samplescene/jumpnclone.unity
+    guid: e0566200b5394d44ab13097cc8998090
+  - enabled: 1
+    path: Assets/Visuals/samplescene/bridge.unity
+    guid: 6b69945887cefde428500bd5623a9037
+  - enabled: 1
+    path: Assets/Visuals/samplescene/doors.unity
+    guid: 3af81a8201b46024a80c805811d446cd
   m_configObjects: {}

@@ -73,6 +73,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpawnNormalClone"",
+                    ""type"": ""Button"",
+                    ""id"": ""dad68ae0-4027-4155-aa4d-43feea33954f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -146,7 +154,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""3a4cdaa6-3eb4-45a6-b26c-06d1116156b5"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
@@ -211,7 +219,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0f5d094d-1542-4dca-8b5d-2eb8f192b7e8"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": ""Tap(duration=0.3)"",
                     ""processors"": """",
                     ""groups"": """",
@@ -273,6 +281,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbff293e-f0d7-42b9-afe9-5a4ffcfa7eb9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnNormalClone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -288,6 +307,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_SwitchCamera = m_Gameplay.FindAction("SwitchCamera", throwIfNotFound: true);
         m_Gameplay_StartRecording = m_Gameplay.FindAction("StartRecording", throwIfNotFound: true);
         m_Gameplay_PauseGame = m_Gameplay.FindAction("PauseGame", throwIfNotFound: true);
+        m_Gameplay_SpawnNormalClone = m_Gameplay.FindAction("SpawnNormalClone", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -344,6 +364,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_SwitchCamera;
     private readonly InputAction m_Gameplay_StartRecording;
     private readonly InputAction m_Gameplay_PauseGame;
+    private readonly InputAction m_Gameplay_SpawnNormalClone;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -355,6 +376,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @SwitchCamera => m_Wrapper.m_Gameplay_SwitchCamera;
         public InputAction @StartRecording => m_Wrapper.m_Gameplay_StartRecording;
         public InputAction @PauseGame => m_Wrapper.m_Gameplay_PauseGame;
+        public InputAction @SpawnNormalClone => m_Wrapper.m_Gameplay_SpawnNormalClone;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -385,6 +407,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PauseGame.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseGame;
+                @SpawnNormalClone.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
+                @SpawnNormalClone.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
+                @SpawnNormalClone.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -410,6 +435,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @SpawnNormalClone.started += instance.OnSpawnNormalClone;
+                @SpawnNormalClone.performed += instance.OnSpawnNormalClone;
+                @SpawnNormalClone.canceled += instance.OnSpawnNormalClone;
             }
         }
     }
@@ -423,5 +451,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSwitchCamera(InputAction.CallbackContext context);
         void OnStartRecording(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnSpawnNormalClone(InputAction.CallbackContext context);
     }
 }

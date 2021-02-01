@@ -20,6 +20,8 @@ TagManager:
   - Player_0
   - BottomCollider
   - TopCollider
+  - Wall
+  - ToNextLevel
   layers:
   - Default
   - TransparentFX
@@ -34,8 +36,8 @@ TagManager:
   - Clone
   - PostProcesssing
   - NoCollision
-  - 
-  - 
+  - Wall
+  - ToNextLevel
   - 
   - 
   - 
