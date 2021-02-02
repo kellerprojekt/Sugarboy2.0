@@ -3,40 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextWriter : MonoBehaviour {
-
+public class TextWriter : MonoBehaviour
+{
     private static TextWriter instance;
 
     private List<TextWriterSingle> textWriterSingleList;
+    [SerializeField] private GameObject cloneDisplay;
 
-    private void Awake() {
+    private void Awake()
+    {
         instance = this;
         textWriterSingleList = new List<TextWriterSingle>();
     }
 
-    public static void AddWriter_Static(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters) {
+    public static void AddWriter_Static(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters)
+    {
         instance.AddWriter(uiText, textToWrite, timePerCharacter, invisibleCharacters);
     }
 
-    private void AddWriter(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters) {
+    private void AddWriter(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters)
+    {
         textWriterSingleList.Add(new TextWriterSingle(uiText, textToWrite, timePerCharacter, invisibleCharacters));
     }
 
-    private void Update() {
-        for (int i = 0; i < textWriterSingleList.Count; i++) {
+    private void Update()
+    {
+        for (int i = 0; i < textWriterSingleList.Count; i++)
+        {
             bool destroyInstance = textWriterSingleList[i].Update();
-            if (destroyInstance) {
+            if (destroyInstance)
+            {
                 textWriterSingleList.RemoveAt(i);
                 i--;
+            }
+            if (textWriterSingleList.Count == 0)
+            {
+                cloneDisplay.SetActive(true);
             }
         }
     }
 
     /*
-    Represents a single TextWriter instance 
+    Represents a single TextWriter instance
     */
-    public class TextWriterSingle {
 
+    public class TextWriterSingle
+    {
         private Text uiText;
         private string textToWrite;
         private int characterIndex;
@@ -44,7 +56,8 @@ public class TextWriter : MonoBehaviour {
         private float timer;
         private bool invisibleCharacters;
 
-        public TextWriterSingle(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters) {
+        public TextWriterSingle(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters)
+        {
             this.uiText = uiText;
             this.textToWrite = textToWrite;
             this.timePerCharacter = timePerCharacter;
@@ -77,9 +90,5 @@ public class TextWriter : MonoBehaviour {
 
             return false;
         }
-
-
-
     }
-
 }

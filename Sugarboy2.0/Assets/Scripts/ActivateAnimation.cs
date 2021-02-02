@@ -9,9 +9,13 @@ public class ActivateAnimation : MonoBehaviour
     //private bool activated = false;
     [SerializeField] private GameObject elevator;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         anim = elevator.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,6 +48,10 @@ public class ActivateAnimation : MonoBehaviour
                 anim.enabled = true;
             }
             anim.SetBool("activated", true);
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ TagManager:
   - TopCollider
   - Wall
   - ToNextLevel
+  - CloneDisplay
   layers:
   - Default
   - TransparentFX

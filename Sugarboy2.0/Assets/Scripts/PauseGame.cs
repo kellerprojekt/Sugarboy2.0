@@ -27,12 +27,16 @@ public class PauseGame : MonoBehaviour
     {
         controls = new PlayerControls();
         controls.Gameplay.PauseGame.performed += _ => Pause();
-        Unpause();
+        currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (currentScene != 0)
+        {
+            Unpause();
+        }
     }
 
     private void Start()
     {
-        currentScene = SceneManager.GetActiveScene().buildIndex;
+        //menu.SetActive(true);
     }
 
     private void OnEnable()
@@ -51,6 +55,11 @@ public class PauseGame : MonoBehaviour
         Cursor.visible = true;
         Time.timeScale = 0;
         isPaused = true;
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void Unpause()

@@ -13418,7 +13418,7 @@ PrefabInstance:
       objectReference: {fileID: 258961798}
     - target: {fileID: 3550919013440865420, guid: e0b57d73ae812964aa1033c50ffce40a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Unpause
+      value: BackToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5100167290974174148, guid: e0b57d73ae812964aa1033c50ffce40a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24799,6 +24799,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8451712861082913142, guid: 03edd9326b5a29b4b87eac91e27fcdeb, type: 3}
+      propertyPath: cloneDisplay
+      value: 
+      objectReference: {fileID: 2124176527}
     - target: {fileID: 8451712861082913143, guid: 03edd9326b5a29b4b87eac91e27fcdeb, type: 3}
       propertyPath: m_Name
       value: TextWriter
@@ -38464,6 +38468,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110058605}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2124176527 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4813829720474386734, guid: 243e201359b1d0844ac97a56ab0cf4b1, type: 3}
+  m_PrefabInstance: {fileID: 1396911125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2124572020
 PrefabInstance:
   m_ObjectHideFlags: 0

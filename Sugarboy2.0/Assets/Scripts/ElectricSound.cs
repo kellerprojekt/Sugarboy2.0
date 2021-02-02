@@ -15,7 +15,7 @@ public class ElectricSound : MonoBehaviour
 
     private int PlayRandomSound()
     {
-        int numb = Random.Range(0, 3);
+        int numb = Random.Range(0, 2);
         return numb;
     }
 
