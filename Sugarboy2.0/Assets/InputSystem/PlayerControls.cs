@@ -81,6 +81,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6e195ea-86f0-4544-aac6-1aef437f41ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -292,6 +300,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""SpawnNormalClone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ec22b9e-e378-4c71-ac84-20f9149cd10a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -308,6 +327,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_StartRecording = m_Gameplay.FindAction("StartRecording", throwIfNotFound: true);
         m_Gameplay_PauseGame = m_Gameplay.FindAction("PauseGame", throwIfNotFound: true);
         m_Gameplay_SpawnNormalClone = m_Gameplay.FindAction("SpawnNormalClone", throwIfNotFound: true);
+        m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -365,6 +385,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_StartRecording;
     private readonly InputAction m_Gameplay_PauseGame;
     private readonly InputAction m_Gameplay_SpawnNormalClone;
+    private readonly InputAction m_Gameplay_Use;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -377,6 +398,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @StartRecording => m_Wrapper.m_Gameplay_StartRecording;
         public InputAction @PauseGame => m_Wrapper.m_Gameplay_PauseGame;
         public InputAction @SpawnNormalClone => m_Wrapper.m_Gameplay_SpawnNormalClone;
+        public InputAction @Use => m_Wrapper.m_Gameplay_Use;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -410,6 +432,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SpawnNormalClone.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
                 @SpawnNormalClone.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
                 @SpawnNormalClone.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpawnNormalClone;
+                @Use.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Use.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Use.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -438,6 +463,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SpawnNormalClone.started += instance.OnSpawnNormalClone;
                 @SpawnNormalClone.performed += instance.OnSpawnNormalClone;
                 @SpawnNormalClone.canceled += instance.OnSpawnNormalClone;
+                @Use.started += instance.OnUse;
+                @Use.performed += instance.OnUse;
+                @Use.canceled += instance.OnUse;
             }
         }
     }
@@ -452,5 +480,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnStartRecording(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
         void OnSpawnNormalClone(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
     }
 }
