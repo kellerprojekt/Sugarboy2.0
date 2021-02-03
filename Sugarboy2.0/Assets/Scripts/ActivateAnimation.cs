@@ -15,7 +15,11 @@ public class ActivateAnimation : MonoBehaviour
     {
         anim = elevator.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        if (audioSource != null) {
         audioSource.Stop();
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
