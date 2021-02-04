@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-
     private Text messageText;
     public Animator transition;
     public float transitionTime = 1f;
@@ -16,10 +15,10 @@ public class LevelLoader : MonoBehaviour
     {
         messageText = transform.Find("Transition").Find("Image").Find("messageText").GetComponent<Text>();
         introTexts.Add("Welcome");
-        introTexts.Add("Tutorial 1");
-        introTexts.Add("Tutorial 2");
-        introTexts.Add("Level 1");
-        introTexts.Add("Level 2");
+        introTexts.Add("The Crib");
+        introTexts.Add("Preperation Room");
+        introTexts.Add("Sugar Factory");
+        introTexts.Add("Safety Door");
     }
 
     private void Start()
@@ -37,7 +36,7 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
-    IEnumerator LoadLevel(int levelIndex)
+    private IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("EndLevel");
 
@@ -45,5 +44,4 @@ public class LevelLoader : MonoBehaviour
 
         SceneManager.LoadScene(levelIndex);
     }
-
 }
