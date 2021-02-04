@@ -8,6 +8,7 @@ public class TextWriter : MonoBehaviour
     private static TextWriter instance;
 
     private List<TextWriterSingle> textWriterSingleList;
+    [SerializeField] private float duration;
     [SerializeField] private GameObject cloneDisplay;
 
     private void Awake()
@@ -38,9 +39,15 @@ public class TextWriter : MonoBehaviour
             }
             if (textWriterSingleList.Count == 0)
             {
-                cloneDisplay.SetActive(true);
+                StartCoroutine(WaitForTutorialText());
             }
         }
+    }
+
+    private IEnumerator WaitForTutorialText()
+    {
+        yield return new WaitForSeconds(duration);
+        cloneDisplay.SetActive(true);
     }
 
     /*

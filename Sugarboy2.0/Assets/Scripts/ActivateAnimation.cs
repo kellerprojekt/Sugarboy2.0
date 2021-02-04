@@ -6,7 +6,6 @@ public class ActivateAnimation : MonoBehaviour
 {
     private Animator anim;
 
-    //private bool activated = false;
     [SerializeField] private GameObject elevator;
 
     private AudioSource audioSource;
@@ -23,20 +22,20 @@ public class ActivateAnimation : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (contact)
+        {
+            anim.SetBool("activated", true);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Contains("Player"))
         {
-            Debug.Log("hello");
-            if (anim.enabled == false)
-            {
-                anim.enabled = true;
-            }
-            anim.SetBool("activated", true);
-        }
-        if (collision.gameObject.tag.Contains("_"))
-        {
-            Debug.Log("hello2");
+            contact = true;
+
             if (anim.enabled == false)
             {
                 anim.enabled = true;
