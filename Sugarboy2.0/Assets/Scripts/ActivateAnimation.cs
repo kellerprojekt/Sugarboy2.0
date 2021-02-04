@@ -10,22 +10,33 @@ public class ActivateAnimation : MonoBehaviour
     [SerializeField] private GameObject elevator;
 
     private AudioSource audioSource;
+    [SerializeField] private bool contact = false;
 
     private void Awake()
     {
         anim = elevator.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        if (audioSource != null) {
-        audioSource.Stop();
+        if (audioSource != null)
+        {
+            audioSource.Stop();
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Contains("Player"))
         {
+            Debug.Log("hello");
+            if (anim.enabled == false)
+            {
+                anim.enabled = true;
+            }
+            anim.SetBool("activated", true);
+        }
+        if (collision.gameObject.tag.Contains("_"))
+        {
+            Debug.Log("hello2");
             if (anim.enabled == false)
             {
                 anim.enabled = true;

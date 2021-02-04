@@ -150,7 +150,7 @@ public class TimeBodyCopy : MonoBehaviour
             gameObject.tag = $"Player_{GameManager.Instance.counter}";
             spawningPosition = GameManager.Instance.activePlayer.transform;
             GameManager.Instance.ReduceAllowedClones();
-            GameObject obj = Instantiate(clone, spawningPosition.position, transform.rotation);
+            GameObject obj = Instantiate(clone, spawningPosition.position + new Vector3(0f, .3f, 0f), transform.rotation);
             obj.tag = "Player";
             obj.name = "Player";
             if (recordingPositionSet)
