@@ -500,7 +500,6 @@ GameObject:
   - component: {fileID: 1757256951524462216}
   - component: {fileID: 2900540570198217858}
   - component: {fileID: 1757256951524462213}
-  - component: {fileID: 1318100071156866429}
   m_Layer: 9
   m_Name: sugarboy
   m_TagString: Player
@@ -517,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 1486871992085689307}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 2.33, y: 5.53, z: -2.03}
-  m_LocalScale: {x: 0.223853, y: 0.223853, z: 0.223853}
+  m_LocalScale: {x: 0.18625988, y: 0.18625988, z: 0.18625988}
   m_Children:
   - {fileID: 1819274646106143316}
   - {fileID: 4026047627625032184}
@@ -635,25 +634,6 @@ MonoBehaviour:
   maxDistance: 1.5
   hitDetected: 0
   boxCollider: {fileID: 1757256951524462215}
---- !u!95 &1318100071156866429
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486871992085689307}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9867b438980ce934880549c2e6b6b360, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1888464771723398640
 GameObject:
   m_ObjectHideFlags: 0
