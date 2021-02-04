@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpingSpeed = 5f;
     [SerializeField] private float maxDistance = 1.5f;
     [SerializeField] private bool hitDetected;
-    [SerializeField]private BoxCollider boxCollider;
+    [SerializeField] private BoxCollider boxCollider;
     private RaycastHit hit;
 
     private PlayerControls controls;
@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = true;
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -81,14 +82,14 @@ public class PlayerMovement : MonoBehaviour
     private void IsGrounded()
     {
         //hitDetected = Physics.BoxCast(new Vector3(transform.position.x, transform.position.y, transform.position.z),
-       hitDetected = Physics.BoxCast(boxCollider.bounds.center, transform.localScale, -transform.up, out hit, transform.rotation, maxDistance);
+        hitDetected = Physics.BoxCast(boxCollider.bounds.center, transform.localScale, -transform.up, out hit, transform.rotation, maxDistance);
         if (hitDetected)
         {
             if (hit.collider.CompareTag("Ground") && !_isGrounded)
             {
                 _isGrounded = true;
                 return;
-            } 
+            }
         }
         //new Vector3((boxCollider.size.x * 0.9f), boxCollider.size.y, (boxCollider.size.z * 0.9f)) * 0.5f, -Vector3.up,
         //out _,
@@ -99,24 +100,23 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = false;
     }
 
-
     private void OnDrawGizmos()
     {
         // Display the explosion radius when selected
-        if (boxCollider != null)
-        {
-            if (_isGrounded)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay(transform.position,-transform.up *maxDistance);
-                Gizmos.DrawWireCube(transform.position + (-transform.up) * maxDistance, transform.localScale);
+        //if (boxCollider != null)
+        //{
+        //    if (_isGrounded)
+        //    {
+        //        Gizmos.color = Color.red;
+        //        Gizmos.DrawRay(transform.position,-transform.up *maxDistance);
+        //        Gizmos.DrawWireCube(transform.position + (-transform.up) * maxDistance, transform.localScale);
 
-            }
-            else
-            {
-                Gizmos.DrawRay(transform.position, -transform.up * maxDistance);
-                Gizmos.DrawWireCube(transform.position + (-transform.up) * maxDistance, transform.localScale);
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        Gizmos.DrawRay(transform.position, -transform.up * maxDistance);
+        //        Gizmos.DrawWireCube(transform.position + (-transform.up) * maxDistance, transform.localScale);
+        //    }
+        //}
     }
 }

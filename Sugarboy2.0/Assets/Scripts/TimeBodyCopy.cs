@@ -31,7 +31,6 @@ public class TimeBodyCopy : MonoBehaviour
         controls.Gameplay.SpawnNormalClone.performed += _ => Clone();
     }
 
-
     private void OnEnable()
     {
         controls.Gameplay.Enable();
@@ -151,7 +150,7 @@ public class TimeBodyCopy : MonoBehaviour
             gameObject.tag = $"Player_{GameManager.Instance.counter}";
             spawningPosition = GameManager.Instance.activePlayer.transform;
             GameManager.Instance.ReduceAllowedClones();
-            GameObject obj = Instantiate(clone, spawningPosition.position, Quaternion.identity);
+            GameObject obj = Instantiate(clone, spawningPosition.position, transform.rotation);
             obj.tag = "Player";
             obj.name = "Player";
             if (recordingPositionSet)
